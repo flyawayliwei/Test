@@ -1,0 +1,69 @@
+<ion-view title="双流人.net">
+
+	<ion-nav-buttons side="left">
+		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<!--<button class="button button-icon icon ion-refresh" ng-click="refresh()"></button>-->
+
+        <button class="button button-icon icon ion-compose" ng-click="newTopicModal.show()" ></button>
+	</ion-nav-buttons>
+
+	<ion-content>
+
+        <ion-refresher ng-if="topics.length > 0 || loadError" pulling-text="下拉刷新..." on-refresh="doRefresh()" refreshing-icon="ion-loading-c">
+        </ion-refresher>
+
+		<!--<div class="button-bar bar-balanced bar-sm">-->
+			<!--<a class="button" ng-class="tab=='all' ? 'active' : null" ng-click="changeTab('all')">全部</a>-->
+			<!--<a class="button" ng-class="tab=='share' ? 'active' : null" ng-click="changeTab('share')">分享</a>-->
+			<!--<a class="button" ng-class="tab=='ask' ? 'active' : null" ng-click="changeTab('ask')">问答</a>-->
+			<!--<a class="button" ng-class="tab=='job' ? 'active' : null" ng-click="changeTab('job')">招聘</a>-->
+		<!--</div>-->
+
+		<!--<progress ng-if="loading"></progress>-->
+
+		<div class="list list-topics">
+			<!--<a class="item item-avatar" bindonce bo-href="'#/app/topic/' + topic.id" ng-repeat="topic in topics track by $index">-->
+				<!--<img bo-src="topic.author.avatar_url | avatar" onerror="this.src='img/avatar.png'"/>-->
+				<!--<h2 bo-bind="topic.title"></h2>-->
+				<!--<p>-->
+					<!--<span class="tab" bo-bind="topic.tab | TabFilter:topic.top"></span>-->
+					<!--<em bo-bind="topic.last_reply_at | fromNow"></em>-->
+				<!--</p>-->
+			<!--</a>-->
+			<a class="item item-avatar" ng-repeat="topic in topics track by $index" href="#/app/topic/{{ topic.id }}">
+				<img ng-src="{{ topic.author.avatar_url | avatar }}" onerror="this.src='img/avatar.png'"/>
+				<h2 ng-bind="topic.title"></h2>
+				<p>
+					<span class="tab" ng-bind="topic.tab | TabFilter:topic.top"></span>
+                    <!--<span ng-if="topic.top" class="tab hl">置顶</span>-->
+                    <!--<span ng-if="topic.good && !topic.top" class="tab hl">精华</span>-->
+					<em ng-bind="topic.last_reply_at | fromNow"></em>
+				</p>
+			</a>
+		</div>
+
+        <!--<ion-list class="topics">-->
+            <!--<ion-item class="item-avatar"-->
+                      <!--collection-repeat="topic in topics"-->
+                      <!--collection-item-width="'100%'"-->
+                      <!--collection-item-height="73"-->
+                      <!--href="#/topic/{{topic.id}}">-->
+                <!--<img ng-src="{{topic.author.avatar_url | protocol}}" ng-if="!settings.saverMode" reset-img>-->
+                <!--<h2>{{topic.title}}</h2>-->
+                <!--<p class="summary">-->
+                    <!--<span ng-if="!topic.top && !topic.good" class="tab">{{topic.tab|tabName}}</span>-->
+                    <!--<span ng-if="topic.top" class="tab hl">置顶</span>-->
+                    <!--<span ng-if="topic.good && !topic.top" class="tab hl">精华</span>-->
+                    <!--{{topic.author.loginname}}-->
+          <!--<span class="item-note ago" am-time-ago="topic.last_reply_at">-->
+          <!--</span>-->
+                <!--</p>-->
+            <!--</ion-item>-->
+        <!--</ion-list>-->
+        <ion-infinite-scroll on-infinite="loadMore()" distance="10%" icon="ion-loading-c" ng-if="hasNextPage && !loadError">
+        </ion-infinite-scroll>
+	</ion-content>
+
+</ion-view>

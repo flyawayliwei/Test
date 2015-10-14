@@ -1,0 +1,15 @@
+/* Empty. Add your own CSS if you like */
+body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+}
+
+div#wrap {
+    height:60px;
+    text-align: center;
+    margin-top: 5px;
+}
+div#textarea{ border:1px solid #F90; overflow:auto; background:#fff url(/upload/2010-08/28/bg_9_1.gif) right bottom no-repeat; width:99%; height:100px;}
+
